@@ -90,6 +90,10 @@ kopf.config(function($routeProvider, $locationProvider) {
         templateUrl: 'partials/hotthreads.html',
         controller: 'HotThreadsController'
       }).
+      when('/dataview', {
+        templateUrl: 'partials/dataview.html',
+        controller: 'DataViewController'
+      }).
       otherwise({redirectTo: '/cluster'});
 });
 
@@ -1197,6 +1201,57 @@ kopf.controller('CreateIndexController', ['$scope', 'AlertService',
   }
 ]);
 
+kopf.controller('DataViewController', ['$scope', 'ElasticService',
+  'AlertService',
+  function($scope, ElasticService, AlertService) {
+
+    $scope.node = undefined;
+
+    $scope.nodes = [];
+
+    $scope.type = 'cpu';
+
+    $scope.types = ['cpu', 'wait', 'block'];
+
+    $scope.interval = '500ms';
+
+    $scope.threads = 3;
+
+    $scope.ignoreIdleThreads = true;
+
+    $scope.nodesHotThreads = undefined;
+
+    $scope.execute = function() {
+      ElasticService.getHotThreads($scope.node, $scope.type, $scope.threads,
+          $scope.interval, $scope.ignoreIdleThreads,
+          function(result) {
+            $scope.nodesHotThreads = result;
+          },
+          function(error) {
+            AlertService.error('Error while fetching hot threads', error);
+            $scope.nodesHotThreads = undefined;
+          }
+      );
+    };
+
+    $scope.$watch(
+        function() {
+          return ElasticService.cluster;
+        },
+        function(current, previous) {
+          $scope.nodes = ElasticService.getNodes();
+        },
+        true
+    );
+
+    $scope.initializeController = function() {
+      $scope.nodes = ElasticService.getNodes();
+    };
+
+  }
+
+]);
+
 kopf.controller('DebugController', ['$scope', 'DebugService',
   function($scope, DebugService) {
 
@@ -1222,7 +1277,9 @@ kopf.controller('GlobalController', ['$scope', '$location', '$sce', '$window',
   function($scope, $location, $sce, $window, AlertService, ElasticService,
            ExternalSettingsService, PageService) {
 
-    $scope.version = '2.0.1';
+    // Version supported
+    $scope.version = '1.7.3';
+    //$scope.version = '2.0.1';
 
     $scope.modal = new ModalControls();
 

@@ -3,7 +3,9 @@ kopf.controller('GlobalController', ['$scope', '$location', '$sce', '$window',
   function($scope, $location, $sce, $window, AlertService, ElasticService,
            ExternalSettingsService, PageService) {
 
-    $scope.version = '2.0.1';
+    // Version supported
+    $scope.version = '1.7.3';
+    //$scope.version = '2.0.1';
 
     $scope.modal = new ModalControls();
 

@@ -1,16 +1,16 @@
 {
-  "name": "elasticsearch-kopf",
-  "version": "2.0.1",
-  "description": "kopf - simple web administration tool for ElasticSearch",
+  "name": "elasticsearch-blopf",
+  "version": "2.0.2",
+  "description": "blopf - simple web administration tool for ElasticSearch (derived from kopf)",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/lmenezes/elasticsearch-kopf.git"
+    "url": "git://github.com/bloublou2014/elasticsearch-blopf.git"
   },
-  "author": "Leonardo Menezes",
+  "author": "Bloublou",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/lmenezes/elasticsearch-kopf/issues"

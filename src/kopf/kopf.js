@@ -90,5 +90,9 @@ kopf.config(function($routeProvider, $locationProvider) {
         templateUrl: 'partials/hotthreads.html',
         controller: 'HotThreadsController'
       }).
+      when('/dataview', {
+        templateUrl: 'partials/dataview.html',
+        controller: 'DataViewController'
+      }).
       otherwise({redirectTo: '/cluster'});
 });
